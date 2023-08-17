@@ -1,0 +1,13 @@
+@import 'normalize.css';
+
+body {
+  background-color: #242424;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  background-color: #4d79bc;
+}

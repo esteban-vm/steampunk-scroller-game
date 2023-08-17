@@ -1,0 +1,7 @@
+export { default as Background } from './background'
+export { default as Enemy, Angler } from './enemy'
+export { default as InputHandler } from './input-handler'
+export { default as Layer } from './layer'
+export { default as Player } from './player'
+export { default as Projectile } from './projectile'
+export { default as UI } from './ui'
