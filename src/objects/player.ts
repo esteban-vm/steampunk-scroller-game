@@ -45,6 +45,11 @@ export default class Player implements Sprite {
       this.speedY = 0
     }
     this.y += this.speedY
+    if (this.y > this.game.height - this.height * 0.5) {
+      this.y = this.game.height - this.height * 0.5
+    } else if (this.y < -this.height * 0.5) {
+      this.y = -this.height * 0.5
+    }
     this.projectiles.forEach((projectile) => projectile.update())
     this.projectiles = this.projectiles.filter(({ markedForDeletion }) => !markedForDeletion)
     if (this.frameX < this.maxFrame) this.frameX++

@@ -37,8 +37,10 @@ export default abstract class Enemy implements Sprite {
     const { x, y, width, height, image, frameX, frameY } = this
     if (this.game.debug) context.strokeRect(x, y, width, height)
     context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
-    context.font = '20px Helvetica'
-    context.fillText(this.lives.toString(), x, y)
+    if (this.game.debug) {
+      context.font = '20px Helvetica'
+      context.fillText(this.lives.toString(), x, y)
+    }
   }
 }
 
