@@ -11,3 +11,7 @@ body {
 canvas {
   background-color: #4d79bc;
 }
+
+img {
+  display: none;
+}

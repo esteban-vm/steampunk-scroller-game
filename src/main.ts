@@ -1,4 +1,3 @@
-import '@/game.css'
 import Game from '@/game'
 import resize from '@/resize'
 
