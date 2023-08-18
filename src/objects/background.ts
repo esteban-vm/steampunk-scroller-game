@@ -7,10 +7,10 @@ export default class Background implements DynamicGameObject {
   private image2
   private image3
   private image4
-  private layer1
-  private layer2
-  private layer3
-  private layer4
+  public layer1
+  public layer2
+  public layer3
+  public layer4
   private layers
 
   constructor(game: Game) {
@@ -23,7 +23,7 @@ export default class Background implements DynamicGameObject {
     this.layer2 = new Layer(this.game, this.image2, 0.4)
     this.layer3 = new Layer(this.game, this.image3, 1)
     this.layer4 = new Layer(this.game, this.image4, 1.5)
-    this.layers = [this.layer1, this.layer2, this.layer3, this.layer4]
+    this.layers = [this.layer1, this.layer2, this.layer3]
   }
 
   public update() {

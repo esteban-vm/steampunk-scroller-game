@@ -1,5 +1,5 @@
 import type { GameScene, GameSprite, Enemy } from '@/types'
-import { Angler, Background, InputHandler, Player, UI } from '@/objects'
+import { Angler1, Angler2, Background, InputHandler, LuckyFish, Player, UI } from '@/objects'
 
 export default class Game implements GameScene {
   public width
@@ -42,7 +42,7 @@ export default class Game implements GameScene {
     this.score = 0
     this.winningScore = 10
     this.gameTime = 0
-    this.timeLimit = 5_000
+    this.timeLimit = 15_000
     this.speed = 1
     this.gameOver = false
     this.debug = import.meta.env.DEV
@@ -52,6 +52,7 @@ export default class Game implements GameScene {
     if (!this.gameOver) this.gameTime += delta
     if (this.gameTime > this.timeLimit) this.gameOver = true
     this.background.update()
+    this.background.layer4.update()
     this.player.update()
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++
@@ -88,10 +89,14 @@ export default class Game implements GameScene {
     this.player.draw(context)
     this.ui.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
+    this.background.layer4.draw(context)
   }
 
   private addEnemy() {
-    this.enemies.push(new Angler(this))
+    const randomize = Math.random()
+    if (randomize < 0.3) this.enemies.push(new Angler1(this))
+    else if (randomize < 0.6) this.enemies.push(new LuckyFish(this))
+    else this.enemies.push(new Angler2(this))
   }
 
   private checkCollision(sprite1: GameSprite, sprite2: GameSprite) {

@@ -6,7 +6,7 @@ export default class Layer implements GameSprite {
   public y
   public width
   public height
-  private image
+  public image
   private speedModifier
 
   constructor(game: Game, image: HTMLImageElement, speedModifier: number) {

@@ -7,11 +7,11 @@ export default class Player implements GameSprite {
   public y
   public width
   public height
+  public image
   public projectiles: Projectile[]
-  private frameX
-  private frameY
-  private maxFrame
-  private image
+  public frameX
+  public frameY
+  public maxFrame
   private speedY
   private maxSpeed
 
@@ -21,11 +21,11 @@ export default class Player implements GameSprite {
     this.y = 100
     this.width = 120
     this.height = 190
+    this.image = document.getElementById('player') as HTMLImageElement
     this.projectiles = []
     this.frameX = 0
     this.frameY = 0
     this.maxFrame = 37
-    this.image = document.getElementById('player') as HTMLImageElement
     this.speedY = 0
     this.maxSpeed = 3
   }
@@ -46,18 +46,9 @@ export default class Player implements GameSprite {
   }
 
   public draw(context: CanvasRenderingContext2D) {
-    if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
-    context.drawImage(
-      this.image,
-      this.frameX * this.width,
-      this.frameY * this.height,
-      this.width,
-      this.height,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    )
+    const { x, y, width, height, image, frameX, frameY } = this
+    if (this.game.debug) context.strokeRect(x, y, width, height)
+    context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
     this.projectiles.forEach((projectile) => projectile.draw(context))
   }
 
