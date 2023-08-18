@@ -6,7 +6,7 @@ export default class Projectile implements Sprite {
   public y
   public width
   public height
-  // public image
+  public image
   public speed
   public markedForDeletion
 
@@ -16,7 +16,7 @@ export default class Projectile implements Sprite {
     this.y = y
     this.width = 10
     this.height = 3
-    // this.image = document.getElementById('projectile') as HTMLImageElement
+    this.image = document.getElementById('projectile') as HTMLImageElement
     this.speed = 3
     this.markedForDeletion = false
   }
@@ -29,7 +29,6 @@ export default class Projectile implements Sprite {
   }
 
   public draw(context: CanvasRenderingContext2D) {
-    context.fillStyle = 'yellow'
-    context.fillRect(this.x, this.y, this.width, this.height)
+    context.drawImage(this.image, this.x, this.y)
   }
 }

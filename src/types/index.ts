@@ -20,7 +20,7 @@ export interface Scene extends Omit<DynamicObject, 'game'> {
 export interface Sprite extends Scene {
   x: number
   y: number
-  // image: HTMLImageElement
+  image: HTMLImageElement
 }
 
 export type * from '@/objects'
