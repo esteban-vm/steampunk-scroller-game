@@ -14,7 +14,7 @@ export default class Player implements Sprite {
   private maxFrame
   private speedY
   private maxSpeed
-  private powerUp
+  public powerUp
   private powerUpTimer
   private powerUpLimit
 
