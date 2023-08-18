@@ -9,7 +9,7 @@ export default class UserInterface implements StaticObject {
   constructor(game: Game) {
     this.game = game
     this.fontSize = 25
-    this.fontFamily = 'Helvetica'
+    this.fontFamily = 'Bangers'
     this.color = 'white'
   }
 
@@ -28,18 +28,18 @@ export default class UserInterface implements StaticObject {
       let message1: string
       let message2: string
       if (this.game.score > this.game.winningScore) {
-        message1 = 'You win!'
-        message2 = 'Well done!'
+        message1 = 'Most Wondrous!'
+        message2 = 'Well done explorer!'
       } else {
-        message1 = 'You lose!'
-        message2 = 'Try again next time!'
+        message1 = 'Blazes!'
+        message2 = 'Get my repair kit and try again!'
       }
-      context.font = `50px ${this.fontFamily}`
+      context.font = `70px ${this.fontFamily}`
       const x = this.game.width / 2
       const y = this.game.height / 2
-      context.fillText(message1, x, y - 40)
+      context.fillText(message1, x, y - 20)
       context.font = `25px ${this.fontFamily}`
-      context.fillText(message2, x, y + 40)
+      context.fillText(message2, x, y + 20)
     }
     if (this.game.player.powerUp) context.fillStyle = '#ffffbd'
     for (let index = 0; index < this.game.ammo; index++) {

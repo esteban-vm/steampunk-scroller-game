@@ -1,5 +1,10 @@
 @import 'normalize.css';
 
+@font-face {
+  font-family: 'Bangers';
+  src: url('/fonts/Bangers-Regular.ttf');
+}
+
 body {
   background-color: #242424;
   height: 100vh;
@@ -10,6 +15,7 @@ body {
 
 canvas {
   background-color: #4d79bc;
+  font-family: 'Bangers', cursive;
 }
 
 img {
