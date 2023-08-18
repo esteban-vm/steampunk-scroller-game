@@ -1,5 +1,5 @@
 import type { Scene, Sprite, Enemy } from '@/types'
-import { Angler1, Angler2, Background, InputHandler, LuckyFish, Player, UserInterface } from '@/objects'
+import { Angler1, Angler2, Background, InputHandler, LuckyFish, Particle, Player, UserInterface } from '@/objects'
 
 export default class Game implements Scene {
   public width
@@ -7,6 +7,7 @@ export default class Game implements Scene {
   public background
   public player
   public ui
+  public particles: Particle[]
   public enemies: Enemy[]
   public input
   public ammo
@@ -30,6 +31,7 @@ export default class Game implements Scene {
     this.background = new Background(this)
     this.player = new Player(this)
     this.ui = new UserInterface(this)
+    this.particles = []
     this.enemies = []
     this.input = new InputHandler(this)
     this.ammo = 20
@@ -60,10 +62,13 @@ export default class Game implements Scene {
     } else {
       this.ammoTimer += delta
     }
+    this.particles.forEach((particle) => particle.update())
+    this.particles = this.particles.filter((particle) => !particle.markedForDeletion)
     this.enemies.forEach((enemy) => {
       enemy.update()
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
+        for (let index = 1; index <= 10; index++) this.addParticle(enemy)
         if (enemy.type === 'lucky') this.player.enterPowerUp()
         else this.score--
       }
@@ -71,15 +76,17 @@ export default class Game implements Scene {
         if (this.checkCollision(projectile, enemy)) {
           enemy.lives--
           projectile.markedForDeletion = true
+          this.addParticle(enemy)
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true
+            for (let index = 1; index <= 10; index++) this.addParticle(enemy)
             if (!this.gameOver) this.score += enemy.score
             if (this.score > this.winningScore) this.gameOver = true
           }
         }
       })
     })
-    this.enemies = this.enemies.filter(({ markedForDeletion }) => !markedForDeletion)
+    this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
     if (this.enemyTimer > this.enemyInterval && !this.gameOver) {
       this.addEnemy()
       this.enemyTimer = 0
@@ -92,6 +99,7 @@ export default class Game implements Scene {
     this.background.draw(context)
     this.player.draw(context)
     this.ui.draw(context)
+    this.particles.forEach((particle) => particle.draw(context))
     this.enemies.forEach((enemy) => enemy.draw(context))
     this.background.layer4.draw(context)
   }
@@ -101,6 +109,10 @@ export default class Game implements Scene {
     if (randomize < 0.3) this.enemies.push(new Angler1(this))
     else if (randomize < 0.6) this.enemies.push(new LuckyFish(this))
     else this.enemies.push(new Angler2(this))
+  }
+
+  private addParticle(enemy: Enemy) {
+    this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5))
   }
 
   private checkCollision(sprite1: Sprite, sprite2: Sprite) {
