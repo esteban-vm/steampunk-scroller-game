@@ -1,5 +1,5 @@
 import type { Scene, Sprite, Enemy } from '@/types'
-import { Angler1, Angler2, Background, InputHandler, LuckyFish, Particle, Player, UserInterface } from '@/objects'
+import { Background, Enemies, InputHandler, Particle, Player, UserInterface } from '@/objects'
 
 export default class Game implements Scene {
   public width
@@ -68,7 +68,7 @@ export default class Game implements Scene {
       enemy.update()
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
-        for (let index = 1; index <= 10; index++) this.addParticle(enemy)
+        for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
         if (enemy.type === 'lucky') this.player.enterPowerUp()
         else this.score--
       }
@@ -79,7 +79,14 @@ export default class Game implements Scene {
           this.addParticle(enemy)
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true
-            for (let index = 1; index <= 10; index++) this.addParticle(enemy)
+            for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
+            if (enemy.type === 'hivewhale') {
+              for (let index = 1; index <= 5; index++) {
+                const x = enemy.x + Math.random() * enemy.width
+                const y = enemy.y + Math.random() * enemy.height * 0.5
+                this.enemies.push(new Enemies.Drone(this, x, y))
+              }
+            }
             if (!this.gameOver) this.score += enemy.score
             if (this.score > this.winningScore) this.gameOver = true
           }
@@ -106,9 +113,15 @@ export default class Game implements Scene {
 
   private addEnemy() {
     const randomize = Math.random()
-    if (randomize < 0.3) this.enemies.push(new Angler1(this))
-    else if (randomize < 0.6) this.enemies.push(new LuckyFish(this))
-    else this.enemies.push(new Angler2(this))
+    if (randomize < 0.3) {
+      this.enemies.push(new Enemies.Angler1(this))
+    } else if (randomize < 0.6) {
+      this.enemies.push(new Enemies.LuckyFish(this))
+    } else if (randomize < 0.8) {
+      this.enemies.push(new Enemies.HiveWhale(this))
+    } else {
+      this.enemies.push(new Enemies.Angler2(this))
+    }
   }
 
   private addParticle(enemy: Enemy) {

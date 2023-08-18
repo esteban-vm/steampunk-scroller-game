@@ -1,5 +1,6 @@
 export { default as Background } from './background'
-export { default as Enemy, Angler1, Angler2, LuckyFish } from './enemy'
+export * as Enemies from './enemy'
+export { default as Enemy } from './enemy'
 export { default as InputHandler } from './input-handler'
 export { default as Layer } from './layer'
 export { default as Particle } from './particle'

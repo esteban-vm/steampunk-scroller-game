@@ -14,7 +14,7 @@ export default abstract class Enemy implements Sprite {
   public abstract frameY: number
   public markedForDeletion
   private maxFrame
-  private speedX
+  protected speedX
 
   constructor(game: Game) {
     this.game = game
@@ -27,14 +27,21 @@ export default abstract class Enemy implements Sprite {
 
   public update() {
     this.x += this.speedX - this.game.speed
-    if (this.x + this.width < 0) this.markedForDeletion = true
-    if (this.frameX < this.maxFrame) this.frameX++
-    else this.frameX = 0
+    if (this.x + this.width < 0) {
+      this.markedForDeletion = true
+    }
+    if (this.frameX < this.maxFrame) {
+      this.frameX++
+    } else {
+      this.frameX = 0
+    }
   }
 
   public draw(context: CanvasRenderingContext2D) {
     const { x, y, width, height, image, frameX, frameY } = this
-    if (this.game.debug) context.strokeRect(x, y, width, height)
+    if (this.game.debug) {
+      context.strokeRect(x, y, width, height)
+    }
     context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
     if (this.game.debug) {
       context.font = '20px Helvetica'
@@ -56,11 +63,12 @@ export class Angler1 extends Enemy {
   constructor(game: Game) {
     super(game)
     const height = 169
-    this.y = Math.random() * (this.game.height * 0.9 - height)
+    const id = 'angler1'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
     this.width = 228
     this.height = height
-    this.image = document.getElementById('angler1') as HTMLImageElement
-    this.type = 'angler1'
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
     this.lives = 2
     this.score = this.lives
     this.frameY = Math.floor(Math.random() * 3)
@@ -80,11 +88,12 @@ export class Angler2 extends Enemy {
   constructor(game: Game) {
     super(game)
     const height = 165
-    this.y = Math.random() * (this.game.height * 0.9 - height)
+    const id = 'angler2'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
     this.width = 213
     this.height = height
-    this.image = document.getElementById('angler2') as HTMLImageElement
-    this.type = 'angler2'
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
     this.lives = 3
     this.score = this.lives
     this.frameY = Math.floor(Math.random() * 2)
@@ -104,13 +113,67 @@ export class LuckyFish extends Enemy {
   constructor(game: Game) {
     super(game)
     const height = 95
-    this.y = Math.random() * (this.game.height * 0.9 - height)
+    const id = 'lucky'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
     this.width = 99
     this.height = height
-    this.image = document.getElementById('lucky') as HTMLImageElement
-    this.type = 'lucky'
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
     this.lives = 3
     this.score = 15
     this.frameY = Math.floor(Math.random() * 2)
+  }
+}
+
+export class HiveWhale extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game) {
+    super(game)
+    const height = 227
+    const id = 'hivewhale'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
+    this.width = 400
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 15
+    this.score = this.lives
+    this.frameY = 0
+    this.speedX = Math.random() * -1.2 - 0.2
+  }
+}
+
+export class Drone extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game, x: number, y: number) {
+    super(game)
+    const height = 95
+    const id = 'drone'
+    this.x = x
+    this.y = y
+    this.width = 115
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 3
+    this.score = this.lives
+    this.frameY = Math.floor(Math.random() * 2)
+    this.speedX = Math.random() * -4.2 - 0.5
   }
 }
