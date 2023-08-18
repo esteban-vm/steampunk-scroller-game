@@ -7,6 +7,7 @@ export default abstract class Enemy implements Sprite {
   public abstract width: number
   public abstract height: number
   public abstract image: HTMLImageElement
+  public abstract type: string
   public frameX
   public frameY
   public maxFrame
@@ -46,6 +47,7 @@ export class Angler1 extends Enemy {
   public width
   public height
   public image
+  public type
   public lives
   public score
 
@@ -56,6 +58,7 @@ export class Angler1 extends Enemy {
     this.width = 228
     this.height = height
     this.image = document.getElementById('angler1') as HTMLImageElement
+    this.type = 'angler1'
     this.frameY = Math.floor(Math.random() * 3)
     this.lives = 2
     this.score = this.lives
@@ -67,6 +70,7 @@ export class Angler2 extends Enemy {
   public width
   public height
   public image
+  public type
   public lives
   public score
 
@@ -77,6 +81,7 @@ export class Angler2 extends Enemy {
     this.width = 213
     this.height = height
     this.image = document.getElementById('angler2') as HTMLImageElement
+    this.type = 'angler2'
     this.frameY = Math.floor(Math.random() * 2)
     this.lives = 3
     this.score = this.lives
@@ -88,9 +93,9 @@ export class LuckyFish extends Enemy {
   public width
   public height
   public image
+  public type
   public lives
   public score
-  public type
 
   constructor(game: Game) {
     super(game)
@@ -99,9 +104,9 @@ export class LuckyFish extends Enemy {
     this.width = 99
     this.height = height
     this.image = document.getElementById('lucky') as HTMLImageElement
+    this.type = 'lucky'
     this.frameY = Math.floor(Math.random() * 2)
     this.lives = 3
     this.score = 15
-    this.type = 'lucky'
   }
 }

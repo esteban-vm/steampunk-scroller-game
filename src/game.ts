@@ -53,7 +53,7 @@ export default class Game implements Scene {
     if (this.gameTime > this.timeLimit) this.gameOver = true
     this.background.update()
     this.background.layer4.update()
-    this.player.update()
+    this.player.update(delta)
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++
       this.ammoTimer = 0
@@ -62,7 +62,11 @@ export default class Game implements Scene {
     }
     this.enemies.forEach((enemy) => {
       enemy.update()
-      if (this.checkCollision(this.player, enemy)) enemy.markedForDeletion = true
+      if (this.checkCollision(this.player, enemy)) {
+        enemy.markedForDeletion = true
+        if (enemy.type === 'lucky') this.player.enterPowerUp()
+        else this.score--
+      }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
           enemy.lives--

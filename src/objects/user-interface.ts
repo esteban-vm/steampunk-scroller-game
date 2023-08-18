@@ -21,9 +21,6 @@ export default class UserInterface implements StaticObject {
     context.shadowColor = 'black'
     context.font = `${this.fontSize}px ${this.fontFamily}`
     context.fillText(`Score: ${this.game.score}`, 20, 40)
-    for (let index = 0; index < this.game.ammo; index++) {
-      context.fillRect(20 + 5 * index, 50, 3, 20)
-    }
     const formattedTime = (this.game.gameTime * 0.001).toFixed(1)
     context.fillText(`Timer: ${formattedTime}`, 20, 100)
     if (this.game.gameOver) {
@@ -43,6 +40,10 @@ export default class UserInterface implements StaticObject {
       context.fillText(message1, x, y - 40)
       context.font = `25px ${this.fontFamily}`
       context.fillText(message2, x, y + 40)
+    }
+    if (this.game.player.powerUp) context.fillStyle = '#ffffbd'
+    for (let index = 0; index < this.game.ammo; index++) {
+      context.fillRect(20 + 5 * index, 50, 3, 20)
     }
     context.restore()
   }

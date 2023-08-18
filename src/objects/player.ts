@@ -14,6 +14,9 @@ export default class Player implements Sprite {
   public maxFrame
   private speedY
   private maxSpeed
+  public powerUp
+  public powerUpTimer
+  public powerUpLimit
 
   constructor(game: Game) {
     this.game = game
@@ -28,9 +31,12 @@ export default class Player implements Sprite {
     this.maxFrame = 37
     this.speedY = 0
     this.maxSpeed = 3
+    this.powerUp = false
+    this.powerUpTimer = 0
+    this.powerUpLimit = 10_000
   }
 
-  public update() {
+  public update(delta: number) {
     if (this.game.keys.includes('ArrowUp')) {
       this.speedY = -this.maxSpeed
     } else if (this.game.keys.includes('ArrowDown')) {
@@ -43,13 +49,24 @@ export default class Player implements Sprite {
     this.projectiles = this.projectiles.filter(({ markedForDeletion }) => !markedForDeletion)
     if (this.frameX < this.maxFrame) this.frameX++
     else this.frameX = 0
+    if (this.powerUp) {
+      if (this.powerUpTimer > this.powerUpLimit) {
+        this.powerUpTimer = 0
+        this.powerUp = false
+        this.frameY = 0
+      } else {
+        this.powerUpTimer += delta
+        this.frameY = 1
+        this.game.ammo += 0.1
+      }
+    }
   }
 
   public draw(context: CanvasRenderingContext2D) {
     const { x, y, width, height, image, frameX, frameY } = this
     if (this.game.debug) context.strokeRect(x, y, width, height)
-    context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
     this.projectiles.forEach((projectile) => projectile.draw(context))
+    context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
   }
 
   public shootTop() {
@@ -57,5 +74,18 @@ export default class Player implements Sprite {
       this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 30))
       this.game.ammo--
     }
+    if (this.powerUp) this.shootBottom()
+  }
+
+  private shootBottom() {
+    if (this.game.ammo > 0) {
+      this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 175))
+    }
+  }
+
+  public enterPowerUp() {
+    this.powerUpTimer = 0
+    this.powerUp = true
+    this.game.ammo = this.game.maxAmmo
   }
 }
