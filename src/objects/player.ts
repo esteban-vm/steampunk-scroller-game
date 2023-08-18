@@ -1,7 +1,7 @@
-import type { Game, GameSprite } from '@/types'
+import type { Game, Sprite } from '@/types'
 import Projectile from '@/projectile'
 
-export default class Player implements GameSprite {
+export default class Player implements Sprite {
   public game
   public x
   public y

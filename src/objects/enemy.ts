@@ -1,6 +1,6 @@
-import type { Game, GameSprite } from '@/types'
+import type { Game, Sprite } from '@/types'
 
-export default abstract class Enemy implements GameSprite {
+export default abstract class Enemy implements Sprite {
   public game
   public x
   public abstract y: number

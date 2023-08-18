@@ -1,7 +1,7 @@
-import type { Game, DynamicGameObject } from '@/types'
+import type { Game, DynamicObject } from '@/types'
 import Layer from '@/layer'
 
-export default class Background implements DynamicGameObject {
+export default class Background implements DynamicObject {
   public game
   private image1
   private image2

@@ -1,25 +1,26 @@
 import type Game from '@/game'
 
-export interface BasicGameObject {
+export interface BasicObject {
   game: Game
 }
 
-export interface StaticGameObject extends BasicGameObject {
+export interface StaticObject extends BasicObject {
   draw(context: CanvasRenderingContext2D): void
 }
 
-export interface DynamicGameObject extends StaticGameObject {
+export interface DynamicObject extends StaticObject {
   update(delta: number): void
 }
 
-export interface GameScene extends Omit<DynamicGameObject, 'game'> {
+export interface Scene extends Omit<DynamicObject, 'game'> {
   width: number
   height: number
 }
 
-export interface GameSprite extends GameScene {
+export interface Sprite extends Scene {
   x: number
   y: number
+  // image: HTMLImageElement
 }
 
 export type * from '@/objects'

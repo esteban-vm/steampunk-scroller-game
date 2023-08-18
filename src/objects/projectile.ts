@@ -1,11 +1,12 @@
-import type { Game, GameSprite } from '@/types'
+import type { Game, Sprite } from '@/types'
 
-export default class Projectile implements GameSprite {
+export default class Projectile implements Sprite {
   public game
   public x
   public y
   public width
   public height
+  // public image
   public speed
   public markedForDeletion
 
@@ -15,6 +16,7 @@ export default class Projectile implements GameSprite {
     this.y = y
     this.width = 10
     this.height = 3
+    // this.image = document.getElementById('projectile') as HTMLImageElement
     this.speed = 3
     this.markedForDeletion = false
   }

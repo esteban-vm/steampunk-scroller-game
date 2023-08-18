@@ -1,6 +1,6 @@
-import type { Game, GameSprite } from '@/types'
+import type { Game, Sprite } from '@/types'
 
-export default class Layer implements GameSprite {
+export default class Layer implements Sprite {
   public game
   public x
   public y

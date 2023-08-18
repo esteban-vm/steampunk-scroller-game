@@ -1,6 +1,6 @@
-import type { Game, StaticGameObject } from '@/types'
+import type { Game, StaticObject } from '@/types'
 
-export default class UI implements StaticGameObject {
+export default class UserInterface implements StaticObject {
   public game
   private fontSize
   private fontFamily

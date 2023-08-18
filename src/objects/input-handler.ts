@@ -1,6 +1,6 @@
-import type { Game, BasicGameObject } from '@/types'
+import type { Game, BasicObject } from '@/types'
 
-export default class InputHandler implements BasicGameObject {
+export default class InputHandler implements BasicObject {
   public game
 
   constructor(game: Game) {

@@ -1,7 +1,7 @@
-import type { GameScene, GameSprite, Enemy } from '@/types'
-import { Angler1, Angler2, Background, InputHandler, LuckyFish, Player, UI } from '@/objects'
+import type { Scene, Sprite, Enemy } from '@/types'
+import { Angler1, Angler2, Background, InputHandler, LuckyFish, Player, UserInterface } from '@/objects'
 
-export default class Game implements GameScene {
+export default class Game implements Scene {
   public width
   public height
   public background
@@ -29,7 +29,7 @@ export default class Game implements GameScene {
     this.height = height
     this.background = new Background(this)
     this.player = new Player(this)
-    this.ui = new UI(this)
+    this.ui = new UserInterface(this)
     this.enemies = []
     this.input = new InputHandler(this)
     this.ammo = 20
@@ -99,7 +99,7 @@ export default class Game implements GameScene {
     else this.enemies.push(new Angler2(this))
   }
 
-  private checkCollision(sprite1: GameSprite, sprite2: GameSprite) {
+  private checkCollision(sprite1: Sprite, sprite2: Sprite) {
     return (
       sprite1.x < sprite2.x + sprite2.width &&
       sprite1.x + sprite1.width > sprite2.x &&
