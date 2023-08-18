@@ -91,6 +91,7 @@ export default class Player implements Sprite {
   public enterPowerUp() {
     this.powerUpTimer = 0
     this.powerUp = true
-    this.game.ammo = this.game.maxAmmo
+    const { ammo, maxAmmo } = this.game
+    if (ammo < maxAmmo) this.game.ammo = maxAmmo
   }
 }

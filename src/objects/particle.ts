@@ -40,7 +40,7 @@ export default class Particle implements Sprite {
     this.angle = 0
     this.va = Math.random() * 0.2 - 0.1
     this.bounced = 0
-    this.bottomBounceBoundary = Math.random() * 100 + 60
+    this.bottomBounceBoundary = Math.random() * 80 + 60
   }
 
   public update() {
