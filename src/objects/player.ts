@@ -11,12 +11,12 @@ export default class Player implements Sprite {
   public projectiles: Projectile[]
   public frameX
   public frameY
-  public maxFrame
+  private maxFrame
   private speedY
   private maxSpeed
-  public powerUp
-  public powerUpTimer
-  public powerUpLimit
+  private powerUp
+  private powerUpTimer
+  private powerUpLimit
 
   constructor(game: Game) {
     this.game = game

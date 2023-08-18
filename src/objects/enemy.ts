@@ -8,22 +8,21 @@ export default abstract class Enemy implements Sprite {
   public abstract height: number
   public abstract image: HTMLImageElement
   public abstract type: string
-  public frameX
-  public frameY
-  public maxFrame
-  public speedX
-  public markedForDeletion
   public abstract lives: number
   public abstract score: number
+  public frameX
+  public abstract frameY: number
+  public markedForDeletion
+  private maxFrame
+  private speedX
 
   constructor(game: Game) {
     this.game = game
     this.x = this.game.width
     this.frameX = 0
-    this.frameY = 0
+    this.markedForDeletion = false
     this.maxFrame = 37
     this.speedX = Math.random() * -1.5 - 0.5
-    this.markedForDeletion = false
   }
 
   public update() {
@@ -52,6 +51,7 @@ export class Angler1 extends Enemy {
   public type
   public lives
   public score
+  public frameY
 
   constructor(game: Game) {
     super(game)
@@ -61,9 +61,9 @@ export class Angler1 extends Enemy {
     this.height = height
     this.image = document.getElementById('angler1') as HTMLImageElement
     this.type = 'angler1'
-    this.frameY = Math.floor(Math.random() * 3)
     this.lives = 2
     this.score = this.lives
+    this.frameY = Math.floor(Math.random() * 3)
   }
 }
 
@@ -75,6 +75,7 @@ export class Angler2 extends Enemy {
   public type
   public lives
   public score
+  public frameY
 
   constructor(game: Game) {
     super(game)
@@ -84,9 +85,9 @@ export class Angler2 extends Enemy {
     this.height = height
     this.image = document.getElementById('angler2') as HTMLImageElement
     this.type = 'angler2'
-    this.frameY = Math.floor(Math.random() * 2)
     this.lives = 3
     this.score = this.lives
+    this.frameY = Math.floor(Math.random() * 2)
   }
 }
 
@@ -98,6 +99,7 @@ export class LuckyFish extends Enemy {
   public type
   public lives
   public score
+  public frameY
 
   constructor(game: Game) {
     super(game)
@@ -107,8 +109,8 @@ export class LuckyFish extends Enemy {
     this.height = height
     this.image = document.getElementById('lucky') as HTMLImageElement
     this.type = 'lucky'
-    this.frameY = Math.floor(Math.random() * 2)
     this.lives = 3
     this.score = 15
+    this.frameY = Math.floor(Math.random() * 2)
   }
 }

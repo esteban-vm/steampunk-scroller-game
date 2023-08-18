@@ -7,8 +7,8 @@ export default class Projectile implements Sprite {
   public width
   public height
   public image
-  public speed
   public markedForDeletion
+  private speed
 
   constructor(game: Game, x: number, y: number) {
     this.game = game
@@ -17,8 +17,8 @@ export default class Projectile implements Sprite {
     this.width = 10
     this.height = 3
     this.image = document.getElementById('projectile') as HTMLImageElement
-    this.speed = 3
     this.markedForDeletion = false
+    this.speed = 3
   }
 
   public update() {
