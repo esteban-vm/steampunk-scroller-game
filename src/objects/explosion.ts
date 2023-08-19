@@ -2,25 +2,31 @@ import type { Game, Sprite } from '@/types'
 
 export default abstract class Explosion implements Sprite {
   public game
-  public abstract x: number
-  public abstract y: number
-  public abstract width: number
-  public abstract height: number
+  public x: number
+  public y: number
+  public width: number
+  public height: number
   public abstract image: HTMLImageElement
   public frameX
   public markedForDeletion
-  public abstract spriteWidth: number
+  protected spriteWidth: number
   protected spriteHeight
   protected fps
   protected timer
   protected interval
   protected maxFrame
 
-  constructor(game: Game) {
+  constructor(game: Game, x: number, y: number) {
     this.game = game
+    const size = 200
+    this.x = x - size * 0.5
+    this.y = y - size * 0.5
+    this.width = size
+    this.height = size
     this.frameX = 0
     this.markedForDeletion = false
-    this.spriteHeight = 200
+    this.spriteHeight = size
+    this.spriteWidth = size
     this.fps = 30
     this.timer = 0
     this.interval = 1_000 / this.fps
@@ -47,24 +53,19 @@ export default abstract class Explosion implements Sprite {
 }
 
 export class SmokeExplosion extends Explosion {
-  public x
-  public y
-  public width
-  public height
   public image
-  public spriteWidth
 
-  constructor(game: Game, x: number, y: number) {
-    super(game)
-    const width = 200
-    const height = this.spriteHeight
-    this.x = x - width * 0.5
-    this.y = y - height * 0.5
-    this.width = width
-    this.height = height
+  constructor(...args: [game: Game, x: number, y: number]) {
+    super(...args)
     this.image = document.getElementById('smokeExplosion') as HTMLImageElement
-    this.spriteWidth = 200
   }
 }
 
-export class FireExplosion {}
+export class FireExplosion extends Explosion {
+  public image
+
+  constructor(...args: [game: Game, x: number, y: number]) {
+    super(...args)
+    this.image = document.getElementById('fireExplosion') as HTMLImageElement
+  }
+}

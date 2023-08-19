@@ -128,11 +128,10 @@ export default class Game implements MainObject {
 
   private addExplosion(enemy: Enemy) {
     const randomize = Math.random()
-    if (randomize < 1) {
-      const x = enemy.x + enemy.width * 0.5
-      const y = enemy.y + enemy.height * 0.5
-      this.explosions.push(new Explosions.SmokeExplosion(this, x, y))
-    }
+    const x = enemy.x + enemy.width * 0.5
+    const y = enemy.y + enemy.height * 0.5
+    if (randomize < 0.5) this.explosions.push(new Explosions.SmokeExplosion(this, x, y))
+    else this.explosions.push(new Explosions.FireExplosion(this, x, y))
   }
 
   private addParticle(enemy: Enemy) {
