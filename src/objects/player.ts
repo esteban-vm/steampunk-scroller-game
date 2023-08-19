@@ -59,6 +59,7 @@ export default class Player implements Sprite {
         this.powerUpTimer = 0
         this.powerUp = false
         this.frameY = 0
+        this.game.sound.playSound('powerDown')
       } else {
         this.powerUpTimer += delta
         this.frameY = 1
@@ -79,6 +80,7 @@ export default class Player implements Sprite {
       this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 30))
       this.game.ammo--
     }
+    this.game.sound.playSound('shot')
     if (this.powerUp) this.shootBottom()
   }
 
@@ -93,5 +95,6 @@ export default class Player implements Sprite {
     this.powerUp = true
     const { ammo, maxAmmo } = this.game
     if (ammo < maxAmmo) this.game.ammo = maxAmmo
+    this.game.sound.playSound('powerUp')
   }
 }

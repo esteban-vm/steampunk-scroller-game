@@ -25,3 +25,4 @@ export interface Sprite extends BasicObject, MainObject {
 
 export type * from '@/objects'
 export type { default as Game } from '@/game'
+export type Sound = 'powerUp' | 'powerDown' | 'explosion' | 'shot' | 'hit' | 'shield'

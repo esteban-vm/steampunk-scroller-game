@@ -1,5 +1,5 @@
 import type { MainObject, Sprite, Enemy, Explosion } from '@/types'
-import { Background, Enemies, Explosions, InputHandler, Particle, Player, UserInterface } from '@/objects'
+import { Background, Enemies, Explosions, InputHandler, Particle, Player, SoundHandler, UserInterface } from '@/objects'
 
 export default class Game implements MainObject {
   public width
@@ -11,6 +11,7 @@ export default class Game implements MainObject {
   public enemies: Enemy[]
   public explosions: Explosion[]
   public input
+  public sound
   public ammo
   public maxAmmo
   public ammoTimer
@@ -36,6 +37,7 @@ export default class Game implements MainObject {
     this.enemies = []
     this.explosions = []
     this.input = new InputHandler(this)
+    this.sound = new SoundHandler(this)
     this.ammo = 20
     this.maxAmmo = 50
     this.ammoTimer = 0
@@ -73,6 +75,7 @@ export default class Game implements MainObject {
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
         this.addExplosion(enemy)
+        this.sound.playSound('hit')
         for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
         if (enemy.type === 'luckyFish') this.player.enterPowerUp()
         else if (!this.gameOver) this.score--
@@ -85,6 +88,7 @@ export default class Game implements MainObject {
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true
             this.addExplosion(enemy)
+            this.sound.playSound('explosion')
             for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
             if (enemy.type === 'moonFish') this.player.enterPowerUp()
             if (enemy.type === 'hiveWhale') {
