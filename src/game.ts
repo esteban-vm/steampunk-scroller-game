@@ -113,27 +113,21 @@ export default class Game implements Scene {
 
   private addEnemy() {
     const randomize = Math.random()
-    if (randomize < 0.3) {
-      this.enemies.push(new Enemies.Angler1(this))
-    } else if (randomize < 0.6) {
-      this.enemies.push(new Enemies.LuckyFish(this))
-    } else if (randomize < 0.8) {
-      this.enemies.push(new Enemies.HiveWhale(this))
-    } else {
-      this.enemies.push(new Enemies.Angler2(this))
-    }
+    if (randomize < 0.3) this.enemies.push(new Enemies.Angler1(this))
+    else if (randomize < 0.6) this.enemies.push(new Enemies.LuckyFish(this))
+    else if (randomize < 0.8) this.enemies.push(new Enemies.HiveWhale(this))
+    else this.enemies.push(new Enemies.Angler2(this))
   }
 
   private addParticle(enemy: Enemy) {
-    this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5))
+    const x = enemy.x + enemy.width * 0.5
+    const y = enemy.y + enemy.height * 0.5
+    this.particles.push(new Particle(this, x, y))
   }
 
   private checkCollision(sprite1: Sprite, sprite2: Sprite) {
-    return (
-      sprite1.x < sprite2.x + sprite2.width &&
-      sprite1.x + sprite1.width > sprite2.x &&
-      sprite1.y < sprite2.y + sprite2.height &&
-      sprite1.height + sprite1.y > sprite2.y
-    )
+    const { x: x1, y: y1, width: w1, height: h1 } = sprite1
+    const { x: x2, y: y2, width: w2, height: h2 } = sprite2
+    return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && h1 + y1 > y2
   }
 }

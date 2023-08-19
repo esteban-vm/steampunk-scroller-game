@@ -51,7 +51,7 @@ export default class Player implements Sprite {
       this.y = -this.height * 0.5
     }
     this.projectiles.forEach((projectile) => projectile.update())
-    this.projectiles = this.projectiles.filter(({ markedForDeletion }) => !markedForDeletion)
+    this.projectiles = this.projectiles.filter((projectile) => !projectile.markedForDeletion)
     if (this.frameX < this.maxFrame) this.frameX++
     else this.frameX = 0
     if (this.powerUp) {
@@ -68,8 +68,8 @@ export default class Player implements Sprite {
   }
 
   public draw(context: CanvasRenderingContext2D) {
-    const { x, y, width, height, image, frameX, frameY } = this
-    if (this.game.debug) context.strokeRect(x, y, width, height)
+    const { game, x, y, width, height, image, frameX, frameY } = this
+    if (game.debug) context.strokeRect(x, y, width, height)
     this.projectiles.forEach((projectile) => projectile.draw(context))
     context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
   }

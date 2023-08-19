@@ -27,26 +27,19 @@ export default abstract class Enemy implements Sprite {
 
   public update() {
     this.x += this.speedX - this.game.speed
-    if (this.x + this.width < 0) {
-      this.markedForDeletion = true
-    }
-    if (this.frameX < this.maxFrame) {
-      this.frameX++
-    } else {
-      this.frameX = 0
-    }
+    if (this.x + this.width < 0) this.markedForDeletion = true
+    if (this.frameX < this.maxFrame) this.frameX++
+    else this.frameX = 0
   }
 
   public draw(context: CanvasRenderingContext2D) {
-    const { x, y, width, height, image, frameX, frameY } = this
-    if (this.game.debug) {
+    const { game, lives, x, y, width, height, image, frameX, frameY } = this
+    if (game.debug) {
       context.strokeRect(x, y, width, height)
+      context.font = '20px Helvetica'
+      context.fillText(lives.toString(), x, y)
     }
     context.drawImage(image, frameX * width, frameY * height, width, height, x, y, width, height)
-    if (this.game.debug) {
-      context.font = '20px Helvetica'
-      context.fillText(this.lives.toString(), x, y)
-    }
   }
 }
 
