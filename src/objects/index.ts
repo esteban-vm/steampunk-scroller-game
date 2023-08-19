@@ -1,6 +1,8 @@
 export { default as Background } from './background'
 export * as Enemies from './enemy'
 export { default as Enemy } from './enemy'
+export * as Explosions from './explosion'
+export { default as Explosion } from './explosion'
 export { default as InputHandler } from './input-handler'
 export { default as Layer } from './layer'
 export { default as Particle } from './particle'

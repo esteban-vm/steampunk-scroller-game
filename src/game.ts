@@ -1,5 +1,5 @@
-import type { Scene, Sprite, Enemy } from '@/types'
-import { Background, Enemies, InputHandler, Particle, Player, UserInterface } from '@/objects'
+import type { Scene, Sprite, Enemy, Explosion } from '@/types'
+import { Background, Enemies, Explosions, InputHandler, Particle, Player, UserInterface } from '@/objects'
 
 export default class Game implements Scene {
   public width
@@ -9,6 +9,7 @@ export default class Game implements Scene {
   public ui
   public particles: Particle[]
   public enemies: Enemy[]
+  public explosions: Explosion[]
   public input
   public ammo
   public maxAmmo
@@ -33,6 +34,7 @@ export default class Game implements Scene {
     this.ui = new UserInterface(this)
     this.particles = []
     this.enemies = []
+    this.explosions = []
     this.input = new InputHandler(this)
     this.ammo = 20
     this.maxAmmo = 50
@@ -64,10 +66,13 @@ export default class Game implements Scene {
     }
     this.particles.forEach((particle) => particle.update())
     this.particles = this.particles.filter((particle) => !particle.markedForDeletion)
+    this.explosions.forEach((explosion) => explosion.update(delta))
+    this.explosions = this.explosions.filter((explosion) => !explosion.markedForDeletion)
     this.enemies.forEach((enemy) => {
       enemy.update()
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
+        this.addExplosion(enemy)
         for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
         if (enemy.type === 'lucky') this.player.enterPowerUp()
         else this.score--
@@ -79,6 +84,7 @@ export default class Game implements Scene {
           this.addParticle(enemy)
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true
+            this.addExplosion(enemy)
             for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
             if (enemy.type === 'hivewhale') {
               for (let index = 1; index <= 5; index++) {
@@ -108,6 +114,7 @@ export default class Game implements Scene {
     this.player.draw(context)
     this.particles.forEach((particle) => particle.draw(context))
     this.enemies.forEach((enemy) => enemy.draw(context))
+    this.explosions.forEach((explosion) => explosion.draw(context))
     this.background.layer4.draw(context)
   }
 
@@ -117,6 +124,15 @@ export default class Game implements Scene {
     else if (randomize < 0.6) this.enemies.push(new Enemies.LuckyFish(this))
     else if (randomize < 0.8) this.enemies.push(new Enemies.HiveWhale(this))
     else this.enemies.push(new Enemies.Angler2(this))
+  }
+
+  private addExplosion(enemy: Enemy) {
+    const randomize = Math.random()
+    if (randomize < 1) {
+      const x = enemy.x + enemy.width * 0.5
+      const y = enemy.y + enemy.height * 0.5
+      this.explosions.push(new Explosions.SmokeExplosion(this, x, y))
+    }
   }
 
   private addParticle(enemy: Enemy) {

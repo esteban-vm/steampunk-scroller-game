@@ -14,8 +14,8 @@ window.addEventListener('load', function () {
     const delta = time - lastTime
     lastTime = time
     context.clearRect(0, 0, canvas.width, canvas.height)
-    game.update(delta)
     game.draw(context)
+    game.update(delta)
     this.requestAnimationFrame(animate)
   }
 
