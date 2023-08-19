@@ -86,6 +86,7 @@ export default class Game implements MainObject {
             enemy.markedForDeletion = true
             this.addExplosion(enemy)
             for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
+            if (enemy.type === 'moonFish') this.player.enterPowerUp()
             if (enemy.type === 'hiveWhale') {
               for (let index = 1; index <= 5; index++) {
                 const x = enemy.x + Math.random() * enemy.width
@@ -123,6 +124,8 @@ export default class Game implements MainObject {
     if (randomize < 0.3) this.enemies.push(new Enemies.Angler1(this))
     else if (randomize < 0.6) this.enemies.push(new Enemies.LuckyFish(this))
     else if (randomize < 0.7) this.enemies.push(new Enemies.HiveWhale(this))
+    else if (randomize < 0.8) this.enemies.push(new Enemies.BulbWhale(this))
+    else if (randomize < 0.9) this.enemies.push(new Enemies.MoonFish(this))
     else this.enemies.push(new Enemies.Angler2(this))
   }
 

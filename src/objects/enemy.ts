@@ -169,3 +169,55 @@ export class Drone extends Enemy {
     this.speedX = Math.random() * -4.2 - 0.5
   }
 }
+
+export class BulbWhale extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game) {
+    super(game)
+    const height = 219
+    const id = 'bulbWhale'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
+    this.width = 270
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 20
+    this.score = this.lives
+    this.frameY = Math.floor(Math.random() * 2)
+    this.speedX = Math.random() * -1.2 - 0.2
+  }
+}
+
+export class MoonFish extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game) {
+    super(game)
+    const height = 240
+    const id = 'moonFish'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
+    this.width = 227
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 10
+    this.score = this.lives
+    this.frameY = Math.floor(Math.random() * 2)
+    this.speedX = Math.random() * -1.2 - 2
+  }
+}
