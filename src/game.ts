@@ -39,14 +39,14 @@ export default class Game implements MainObject {
     this.ammo = 20
     this.maxAmmo = 50
     this.ammoTimer = 0
-    this.ammoInterval = 500
+    this.ammoInterval = 350
     this.enemyTimer = 0
-    this.enemyInterval = 1_000
+    this.enemyInterval = 2_000
     this.keys = []
     this.score = 0
-    this.winningScore = 10
+    this.winningScore = 80
     this.gameTime = 0
-    this.timeLimit = 15_000
+    this.timeLimit = 30_000
     this.speed = 1
     this.gameOver = false
     this.debug = import.meta.env.DEV
@@ -75,7 +75,7 @@ export default class Game implements MainObject {
         this.addExplosion(enemy)
         for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
         if (enemy.type === 'luckyFish') this.player.enterPowerUp()
-        else this.score--
+        else if (!this.gameOver) this.score--
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
@@ -122,7 +122,7 @@ export default class Game implements MainObject {
     const randomize = Math.random()
     if (randomize < 0.3) this.enemies.push(new Enemies.Angler1(this))
     else if (randomize < 0.6) this.enemies.push(new Enemies.LuckyFish(this))
-    else if (randomize < 0.8) this.enemies.push(new Enemies.HiveWhale(this))
+    else if (randomize < 0.7) this.enemies.push(new Enemies.HiveWhale(this))
     else this.enemies.push(new Enemies.Angler2(this))
   }
 

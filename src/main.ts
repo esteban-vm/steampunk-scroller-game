@@ -3,7 +3,7 @@ import resize from '@/resize'
 
 window.addEventListener('load', function () {
   const canvas = this.document.querySelector('canvas')!
-  canvas.width = 700
+  canvas.width = 1_000
   canvas.height = 500
 
   const game = new Game(canvas.width, canvas.height)

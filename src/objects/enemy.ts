@@ -62,7 +62,7 @@ export class Angler1 extends Enemy {
     this.height = height
     this.image = document.getElementById(id) as HTMLImageElement
     this.type = id
-    this.lives = 2
+    this.lives = 5
     this.score = this.lives
     this.frameY = Math.floor(Math.random() * 3)
   }
@@ -87,7 +87,7 @@ export class Angler2 extends Enemy {
     this.height = height
     this.image = document.getElementById(id) as HTMLImageElement
     this.type = id
-    this.lives = 3
+    this.lives = 6
     this.score = this.lives
     this.frameY = Math.floor(Math.random() * 2)
   }
@@ -112,7 +112,7 @@ export class LuckyFish extends Enemy {
     this.height = height
     this.image = document.getElementById(id) as HTMLImageElement
     this.type = id
-    this.lives = 3
+    this.lives = 5
     this.score = 15
     this.frameY = Math.floor(Math.random() * 2)
   }
@@ -137,7 +137,7 @@ export class HiveWhale extends Enemy {
     this.height = height
     this.image = document.getElementById(id) as HTMLImageElement
     this.type = id
-    this.lives = 15
+    this.lives = 20
     this.score = this.lives
     this.frameY = 0
     this.speedX = Math.random() * -1.2 - 0.2
