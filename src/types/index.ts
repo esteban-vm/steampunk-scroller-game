@@ -12,12 +12,12 @@ export interface DynamicObject extends StaticObject {
   update(delta: number): void
 }
 
-export interface Scene extends Omit<DynamicObject, 'game'> {
+export interface MainObject extends Omit<DynamicObject, 'game'> {
   width: number
   height: number
 }
 
-export interface Sprite extends Scene {
+export interface Sprite extends BasicObject, MainObject {
   x: number
   y: number
   image: HTMLImageElement

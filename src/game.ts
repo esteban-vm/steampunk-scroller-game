@@ -1,7 +1,7 @@
-import type { Scene, Sprite, Enemy, Explosion } from '@/types'
+import type { MainObject, Sprite, Enemy, Explosion } from '@/types'
 import { Background, Enemies, Explosions, InputHandler, Particle, Player, UserInterface } from '@/objects'
 
-export default class Game implements Scene {
+export default class Game implements MainObject {
   public width
   public height
   public background
