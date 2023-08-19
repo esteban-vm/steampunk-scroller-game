@@ -27,7 +27,7 @@ export default class Particle implements Sprite {
     this.y = y
     this.width = 7
     this.height = 7
-    this.image = document.getElementById('gears') as HTMLImageElement
+    this.image = document.getElementById('particles') as HTMLImageElement
     this.frameX = Math.floor(Math.random() * 3)
     this.frameY = Math.floor(Math.random() * 3)
     this.markedForDeletion = false

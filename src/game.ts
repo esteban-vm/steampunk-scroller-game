@@ -74,7 +74,7 @@ export default class Game implements MainObject {
         enemy.markedForDeletion = true
         this.addExplosion(enemy)
         for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
-        if (enemy.type === 'lucky') this.player.enterPowerUp()
+        if (enemy.type === 'luckyFish') this.player.enterPowerUp()
         else this.score--
       }
       this.player.projectiles.forEach((projectile) => {
@@ -86,7 +86,7 @@ export default class Game implements MainObject {
             enemy.markedForDeletion = true
             this.addExplosion(enemy)
             for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
-            if (enemy.type === 'hivewhale') {
+            if (enemy.type === 'hiveWhale') {
               for (let index = 1; index <= 5; index++) {
                 const x = enemy.x + Math.random() * enemy.width
                 const y = enemy.y + Math.random() * enemy.height * 0.5

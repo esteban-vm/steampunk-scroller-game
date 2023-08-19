@@ -106,7 +106,7 @@ export class LuckyFish extends Enemy {
   constructor(game: Game) {
     super(game)
     const height = 95
-    const id = 'lucky'
+    const id = 'luckyFish'
     this.y = Math.random() * (this.game.height * 0.95 - height)
     this.width = 99
     this.height = height
@@ -131,7 +131,7 @@ export class HiveWhale extends Enemy {
   constructor(game: Game) {
     super(game)
     const height = 227
-    const id = 'hivewhale'
+    const id = 'hiveWhale'
     this.y = Math.random() * (this.game.height * 0.95 - height)
     this.width = 400
     this.height = height
@@ -156,12 +156,11 @@ export class Drone extends Enemy {
 
   constructor(game: Game, x: number, y: number) {
     super(game)
-    const height = 95
     const id = 'drone'
     this.x = x
     this.y = y
     this.width = 115
-    this.height = height
+    this.height = 95
     this.image = document.getElementById(id) as HTMLImageElement
     this.type = id
     this.lives = 3

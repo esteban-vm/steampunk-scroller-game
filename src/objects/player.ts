@@ -24,7 +24,7 @@ export default class Player implements Sprite {
     this.y = 100
     this.width = 120
     this.height = 190
-    this.image = document.getElementById('player') as HTMLImageElement
+    this.image = document.getElementById('seaHorse') as HTMLImageElement
     this.projectiles = []
     this.frameX = 0
     this.frameY = 0
