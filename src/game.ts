@@ -1,5 +1,16 @@
 import type { MainObject, Sprite, Enemy, Explosion } from '@/types'
-import { Background, Enemies, Explosions, InputHandler, Particle, Player, SoundHandler, UserInterface } from '@/objects'
+
+import {
+  Background,
+  Enemies,
+  Explosions,
+  InputHandler,
+  Particle,
+  Player,
+  Shield,
+  SoundHandler,
+  UserInterface,
+} from '@/objects'
 
 export default class Game implements MainObject {
   public width
@@ -12,6 +23,7 @@ export default class Game implements MainObject {
   public explosions: Explosion[]
   public input
   public sound
+  public shield
   public ammo
   public maxAmmo
   public ammoTimer
@@ -38,6 +50,7 @@ export default class Game implements MainObject {
     this.explosions = []
     this.input = new InputHandler(this)
     this.sound = new SoundHandler(this)
+    this.shield = new Shield(this)
     this.ammo = 20
     this.maxAmmo = 50
     this.ammoTimer = 0
@@ -60,6 +73,7 @@ export default class Game implements MainObject {
     this.background.update()
     this.background.layer4.update()
     this.player.update(delta)
+    this.shield.update(delta)
     if (this.ammoTimer > this.ammoInterval) {
       if (this.ammo < this.maxAmmo) this.ammo++
       this.ammoTimer = 0
@@ -76,6 +90,7 @@ export default class Game implements MainObject {
         enemy.markedForDeletion = true
         this.addExplosion(enemy)
         this.sound.playSound('hit')
+        this.shield.reset()
         for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
         if (enemy.type === 'luckyFish') this.player.enterPowerUp()
         else if (!this.gameOver) this.score--
@@ -117,6 +132,7 @@ export default class Game implements MainObject {
     this.background.draw(context)
     this.ui.draw(context)
     this.player.draw(context)
+    this.shield.draw(context)
     this.particles.forEach((particle) => particle.draw(context))
     this.enemies.forEach((enemy) => enemy.draw(context))
     this.explosions.forEach((explosion) => explosion.draw(context))

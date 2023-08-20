@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'prettier/prettier': 'warn',
     'import/order': [
       'warn',

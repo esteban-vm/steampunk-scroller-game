@@ -217,7 +217,7 @@ export class MoonFish extends Enemy {
     this.type = id
     this.lives = 10
     this.score = this.lives
-    this.frameY = Math.floor(Math.random() * 2)
+    this.frameY = 0
     this.speedX = Math.random() * -1.2 - 2
   }
 }
