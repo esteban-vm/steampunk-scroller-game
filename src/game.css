@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #242424;
+  background-color: black;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,10 +14,12 @@ body {
 }
 
 canvas {
-  background-color: #4d79bc;
   font-family: 'Bangers', cursive;
+  background-color: aliceblue;
+  border: 5px solid aliceblue;
 }
 
-img {
+img,
+audio {
   display: none;
 }

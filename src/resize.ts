@@ -4,6 +4,7 @@ export default (canvas: HTMLCanvasElement) => {
   const windowRatio = windowWidth / windowHeight
   const canvasRatio = canvasWidth / canvasHeight
   const isFullWidth = windowRatio < canvasRatio
-  canvas.style.width = `${isFullWidth ? windowWidth : windowHeight * canvasRatio}px`
-  canvas.style.height = `${isFullWidth ? windowWidth / canvasRatio : windowHeight}px`
+  const margin = 150
+  canvas.style.width = `${isFullWidth ? windowWidth - margin : windowHeight * canvasRatio - margin}px`
+  canvas.style.height = `${isFullWidth ? windowWidth / canvasRatio - margin : windowHeight - margin}px`
 }

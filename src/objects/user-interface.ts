@@ -10,7 +10,7 @@ export default class UserInterface implements StaticObject {
     this.game = game
     this.fontSize = 25
     this.fontFamily = 'Bangers'
-    this.color = 'white'
+    this.color = 'aliceblue'
   }
 
   public draw(context: CanvasRenderingContext2D) {
