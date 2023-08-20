@@ -221,3 +221,55 @@ export class MoonFish extends Enemy {
     this.speedX = Math.random() * -1.2 - 2
   }
 }
+
+export class Stalker extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game) {
+    super(game)
+    const height = 123
+    const id = 'stalker'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
+    this.width = 243
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 5
+    this.score = this.lives
+    this.frameY = 0
+    this.speedX = Math.random() * -1 - 1
+  }
+}
+
+export class RazorFin extends Enemy {
+  public y
+  public width
+  public height
+  public image
+  public type
+  public lives
+  public score
+  public frameY
+
+  constructor(game: Game) {
+    super(game)
+    const height = 149
+    const id = 'razorFin'
+    this.y = Math.random() * (this.game.height * 0.95 - height)
+    this.width = 187
+    this.height = height
+    this.image = document.getElementById(id) as HTMLImageElement
+    this.type = id
+    this.lives = 7
+    this.score = this.lives
+    this.frameY = 0
+    this.speedX = Math.random() * -1 - 1
+  }
+}

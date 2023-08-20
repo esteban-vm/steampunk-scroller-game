@@ -141,7 +141,9 @@ export default class Game implements MainObject {
 
   private addEnemy() {
     const randomize = Math.random()
-    if (randomize < 0.3) this.enemies.push(new Enemies.Angler1(this))
+    if (randomize < 0.1) this.enemies.push(new Enemies.Angler1(this))
+    else if (randomize < 0.3) this.enemies.push(new Enemies.Stalker(this))
+    else if (randomize < 0.5) this.enemies.push(new Enemies.RazorFin(this))
     else if (randomize < 0.6) this.enemies.push(new Enemies.LuckyFish(this))
     else if (randomize < 0.7) this.enemies.push(new Enemies.HiveWhale(this))
     else if (randomize < 0.8) this.enemies.push(new Enemies.BulbWhale(this))
