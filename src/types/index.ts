@@ -23,6 +23,6 @@ export interface Sprite extends BasicObject, MainObject {
   image: HTMLImageElement
 }
 
-export type * from '@/objects'
+export type * from '@/models'
 export type { default as Game } from '@/game'
 export type Sound = 'powerUp' | 'powerDown' | 'explosion' | 'shot' | 'hit' | 'shield'

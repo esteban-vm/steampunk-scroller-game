@@ -10,7 +10,7 @@ import {
   Shield,
   SoundHandler,
   UserInterface,
-} from '@/objects'
+} from '@/models'
 
 export default class Game implements MainObject {
   public width
