@@ -91,7 +91,7 @@ export default class Game implements MainObject {
         this.addExplosion(enemy)
         this.sound.playSound('hit')
         this.shield.reset()
-        this.addParticles(enemy, enemy.score)
+        this.addParticles(enemy)
         if (enemy.type === 'luckyFish') this.player.enterPowerUp()
         else if (!this.gameOver) this.score--
       }
@@ -104,7 +104,7 @@ export default class Game implements MainObject {
             enemy.markedForDeletion = true
             this.addExplosion(enemy)
             this.sound.playSound('explosion')
-            this.addParticles(enemy, enemy.score)
+            this.addParticles(enemy)
             if (enemy.type === 'moonFish') this.player.enterPowerUp()
             if (enemy.type === 'hiveWhale') this.addDrones(enemy)
             if (!this.gameOver) this.score += enemy.score
@@ -154,11 +154,12 @@ export default class Game implements MainObject {
     else this.explosions.push(new Explosions.FireExplosion(this, ex, ey))
   }
 
-  private addParticles(enemy: Enemy, n: number) {
-    const { x, y, width, height } = enemy
+  private addParticles(enemy: Enemy, n?: number) {
+    const { x, y, width, height, score } = enemy
+    const quantity = n ?? score
     const px = x + width * 0.5
     const py = y + height * 0.5
-    for (let index = 1; index <= n; index++) {
+    for (let index = 1; index <= quantity; index++) {
       this.particles.push(new Particle(this, px, py))
     }
   }
