@@ -91,7 +91,7 @@ export default class Game implements MainObject {
         this.addExplosion(enemy)
         this.sound.playSound('hit')
         this.shield.reset()
-        for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
+        this.addParticles(enemy, enemy.score)
         if (enemy.type === 'luckyFish') this.player.enterPowerUp()
         else if (!this.gameOver) this.score--
       }
@@ -99,20 +99,14 @@ export default class Game implements MainObject {
         if (this.checkCollision(projectile, enemy)) {
           enemy.lives--
           projectile.markedForDeletion = true
-          this.addParticle(enemy)
+          this.addParticles(enemy, 1)
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true
             this.addExplosion(enemy)
             this.sound.playSound('explosion')
-            for (let index = 1; index <= enemy.score; index++) this.addParticle(enemy)
+            this.addParticles(enemy, enemy.score)
             if (enemy.type === 'moonFish') this.player.enterPowerUp()
-            if (enemy.type === 'hiveWhale') {
-              for (let index = 1; index <= 5; index++) {
-                const x = enemy.x + Math.random() * enemy.width
-                const y = enemy.y + Math.random() * enemy.height * 0.5
-                this.enemies.push(new Enemies.Drone(this, x, y))
-              }
-            }
+            if (enemy.type === 'hiveWhale') this.addDrones(enemy)
             if (!this.gameOver) this.score += enemy.score
             if (this.score > this.winningScore) this.gameOver = true
           }
@@ -153,16 +147,29 @@ export default class Game implements MainObject {
 
   private addExplosion(enemy: Enemy) {
     const randomize = Math.random()
-    const x = enemy.x + enemy.width * 0.5
-    const y = enemy.y + enemy.height * 0.5
-    if (randomize < 0.5) this.explosions.push(new Explosions.SmokeExplosion(this, x, y))
-    else this.explosions.push(new Explosions.FireExplosion(this, x, y))
+    const { x, y, width, height } = enemy
+    const ex = x + width * 0.5
+    const ey = y + height * 0.5
+    if (randomize < 0.5) this.explosions.push(new Explosions.SmokeExplosion(this, ex, ey))
+    else this.explosions.push(new Explosions.FireExplosion(this, ex, ey))
   }
 
-  private addParticle(enemy: Enemy) {
-    const x = enemy.x + enemy.width * 0.5
-    const y = enemy.y + enemy.height * 0.5
-    this.particles.push(new Particle(this, x, y))
+  private addParticles(enemy: Enemy, n: number) {
+    const { x, y, width, height } = enemy
+    const px = x + width * 0.5
+    const py = y + height * 0.5
+    for (let index = 1; index <= n; index++) {
+      this.particles.push(new Particle(this, px, py))
+    }
+  }
+
+  private addDrones(enemy: Enemy) {
+    const { x, y, width, height } = enemy
+    for (let index = 1; index <= 5; index++) {
+      const dx = x + Math.random() * width
+      const dy = y + Math.random() * height * 0.5
+      this.enemies.push(new Enemies.Drone(this, dx, dy))
+    }
   }
 
   private checkCollision(sprite1: Sprite, sprite2: Sprite) {
