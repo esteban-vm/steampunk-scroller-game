@@ -13,6 +13,6 @@
 *(touch screens are currently not supported)*
 
 ## License:
-This project is released under the MIT [LICENSE](/LICENSE).
+This project is released under the MIT [LICENSE](/LICENSE)
 
 ![Space Invaders Game screenshot](/screenshot.jpeg "Space Invaders Game screenshot")
